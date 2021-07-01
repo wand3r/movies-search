@@ -1,0 +1,30 @@
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-form > * {
+  font-size: 1.2em;
+  margin: 0 0.2em;
+}
+
+.search-form > input {
+  outline: none;
+  border: grey solid 1px;
+}
+
+.search-form > input:focus-visible {
+  outline: none;
+  border: skyblue solid 1px;
+  box-shadow: 0px 0px 0px 3px skyblue;
+}
+
+.search-form__title {
+}
+
+.search-form__year {
+  width: 4em;
+}
+
+.search-form__search-button {
+}

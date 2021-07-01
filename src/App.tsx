@@ -1,8 +1,8 @@
 import * as React from "react";
+import { MoviesSearch } from "./movies-search";
+
 import "./App.css";
 
-function App() {
-  return <div>Hello world!</div>;
-}
-
-export default App;
+export const App: React.FC = () => {
+  return <MoviesSearch />;
+};

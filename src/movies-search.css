@@ -1,0 +1,7 @@
+.movies-search {
+  padding: 0.7em;
+}
+
+.movies-search > *:not(:last-child) {
+  margin-bottom: 0.7em;
+}
