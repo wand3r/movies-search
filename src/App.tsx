@@ -1,8 +1,15 @@
 import * as React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { MoviesSearch } from "./movies-search";
 
-import "./App.css";
+import "./app.css";
+
+const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
-  return <MoviesSearch />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <MoviesSearch />
+    </QueryClientProvider>
+  );
 };

@@ -1,18 +1,30 @@
 import * as React from "react";
-import { Movie } from "./api";
 
 import "./movies-list.css";
+import { Movie } from "./movies-resource";
 
 export type MoviesListProps = {
   movies: Movie[];
+  totalMovies: number;
 };
 
-export const MoviesList: React.FC<MoviesListProps> = ({ movies }) => {
+export const MoviesList: React.FC<MoviesListProps> = ({
+  movies,
+  totalMovies,
+}) => {
+  const moreMoviesToShow = totalMovies - movies.length;
   return (
     <div className="movies-list">
-      {movies.map((movie) => (
-        <MovieItem key={movie.imdbID} {...movie} />
-      ))}
+      <div className="movies-list__grid">
+        {movies.map((movie) => (
+          <MovieItem key={movie.imdbID} {...movie} />
+        ))}
+      </div>
+      {moreMoviesToShow > 0 ? (
+        <div className="movies-list__show-more">
+          and {moreMoviesToShow} movies more
+        </div>
+      ) : undefined}
     </div>
   );
 };

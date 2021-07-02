@@ -5,3 +5,7 @@
 .movies-search > *:not(:last-child) {
   margin-bottom: 0.7em;
 }
+
+.movies-search__message {
+  text-align: center;
+}

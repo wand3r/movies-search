@@ -1,8 +1,12 @@
-.movies-list {
+.movies-list__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 100px;
   gap: 0.5em;
+}
+
+.movies-list__show-more {
+  text-align: center;
 }
 
 .movie-item {
