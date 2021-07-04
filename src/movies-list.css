@@ -6,7 +6,9 @@
 }
 
 .movies-list__show-more {
+  margin-top: 0.5em;
   text-align: center;
+  font-style: italic;
 }
 
 .movie-item {
