@@ -5,33 +5,38 @@ import { MoviesList } from "./movies-list";
 import { SearchForm } from "./search-form";
 
 import "./movies-search.css";
+import { uniq } from "./utils";
 
 export const MoviesSearch: React.FC = () => {
   const [searchParams, setSearchParams] = React.useState<SearchParams>();
 
-  const moviesResource = useMoviesSearch(searchParams ?? { title: "" });
+  const { isLoading, error, data } = useMoviesSearch(
+    searchParams ?? { title: "" }
+  );
+
+  const years = uniq(data?.movies.map((x) => x.year) ?? []);
 
   return (
     <div className="movies-search">
-      <SearchForm onSearch={setSearchParams} />
+      <SearchForm onSearch={setSearchParams} years={years} />
       {(() => {
-        if (moviesResource.isLoading) {
+        if (isLoading) {
           return <div className="movies-search__message">Loading</div>;
         }
-        if (moviesResource.error) {
+        if (error) {
           return (
             <div className="movies-search__message">Something went wrong</div>
           );
         }
-        if (moviesResource.data?.totalMovies === 0) {
+        if (data?.totalMovies === 0) {
           return (
             <div className="movies-search__message">No movies found :(</div>
           );
         }
         return (
           <MoviesList
-            movies={moviesResource.data?.movies ?? []}
-            totalMovies={moviesResource.data?.totalMovies ?? 0}
+            movies={data?.movies ?? []}
+            totalMovies={data?.totalMovies ?? 0}
           />
         );
       })()}

@@ -18,6 +18,8 @@ export type MoviesSearchResult = {
   movies: Movie[];
 };
 
+export const minTitleLength = 3;
+
 export const useMoviesSearch = ({ title, year }: SearchParams) => {
   const result = useQuery<MoviesSearchResult>(
     ["movies", title, year],
@@ -31,7 +33,7 @@ export const useMoviesSearch = ({ title, year }: SearchParams) => {
         movies: response.Search.map(mapOMDbMovie),
       };
     },
-    { enabled: title.length > 2 }
+    { enabled: title.length >= minTitleLength, retry: 1 }
   );
   return result;
 };

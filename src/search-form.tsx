@@ -1,18 +1,20 @@
 import * as React from "react";
+import { minTitleLength } from "./movies-resource";
 
 import "./search-form.css";
 
 export type SearchFormProps = {
+  years?: number[];
   onSearch: (params: { title: string; year?: number }) => void;
 };
 
-export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
+export const SearchForm: React.FC<SearchFormProps> = ({ onSearch, years }) => {
   const [title, setTitle] = React.useState("");
   const [year, setYear] = React.useState<number | undefined>(undefined);
   const titleInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  const isSearchEnabled = title.length > 2;
-  const isClearEnabled = title.length > 0 && year !== undefined;
+  const isSearchEnabled = title.length >= minTitleLength;
+  const isClearEnabled = title.length > 0 || year !== undefined;
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.currentTarget.value);
@@ -52,12 +54,18 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
       />
       <input
         className="search-form__year"
+        list="existing-years"
         type="number"
         placeholder="Year"
         value={year != null ? year : ""}
         onChange={handleYearChange}
         onKeyPress={handleKeyPress}
       />
+      <datalist id="existing-years">
+        {years?.map((year) => (
+          <option key={year}>{year}</option>
+        ))}
+      </datalist>
       <button
         className="search-form__search-button"
         onClick={handleSearch}
@@ -65,7 +73,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
       >
         Search
       </button>
-      <button onClick={handleClear} disabled={!isSearchEnabled}>
+      <button onClick={handleClear} disabled={!isClearEnabled}>
         Clear
       </button>
     </div>
